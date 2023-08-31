@@ -38,9 +38,6 @@ const LiffLoginExample = () => {
 
   return (
     <div>
-      {!profilePicture ? (
-        <button onClick={handleLogin}>Login with LIFF</button>
-      ) : (
         <div>
           <button onClick={handleLogout}>Logout</button>
           <img src={profilePicture} alt="Profile Picture" />
@@ -48,7 +45,6 @@ const LiffLoginExample = () => {
           <p>{userId}</p>
           <p>{email}</p>
         </div>
-      )}
     </div>
   );
 };
