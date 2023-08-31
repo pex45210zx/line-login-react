@@ -2,34 +2,48 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import liff from '@line/liff'
 
-function App() {
-  const [count, setCount] = useState(0)
+const LiffLoginExample = () => {
+  const [profilePicture, setProfilePicture] = useState('');
+  const [displayName, setDisplayName] = useState('');
+  const [userId, setUserId] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      await liff.init({ liffId: 'YOUR_LIFF_ID' });
+      if (!liff.isLoggedIn()) {
+        liff.login();
+      } else {
+        const profile = await liff.getProfile();
+        setProfilePicture(profile.pictureUrl);
+        setDisplayName(profile.displayName);
+        setUserId(profile.userId);
+
+        // To get user's email, you need the 'profile' LIFF scope.
+        // Make sure you've requested this scope during LIFF initialization.
+        const decodedIDToken = await liff.getDecodedIDToken();
+        setEmail(decodedIDToken.email);
+      }
+    } catch (error) {
+      console.error('LIFF initialization failed:', error);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <button onClick={handleLogin}>Login with LIFF</button>
+      {profilePicture && (
+        <div>
+          <img src={profilePicture} alt="Profile Picture" />
+          <p>{displayName}</p>
+          <p>{userId}</p>
+          <p>{email}</p>
+        </div>
+      )}
+    </div>
+  );
+};
 
-export default App
+export default LiffLoginExample;

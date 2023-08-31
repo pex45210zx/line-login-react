@@ -1,5 +1,5 @@
 {
-  "homepage":"https://pex45210zx.github.io/line-login-react",
+  "homepage": "https://pex45210zx.github.io/line-login-react",
   "name": "line-login-react",
   "private": true,
   "version": "0.0.0",
@@ -12,6 +12,7 @@
     "deploy": "vite build && gh-pages -d dist"
   },
   "dependencies": {
+    "@line/liff": "^2.22.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
