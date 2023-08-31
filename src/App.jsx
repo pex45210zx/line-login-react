@@ -1,8 +1,6 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import liff from '@line/liff'
+import { useState } from 'react';
+import liff from '@line/liff';
+import './App.css';
 
 const LiffLoginExample = () => {
   const [profilePicture, setProfilePicture] = useState('');
@@ -13,6 +11,7 @@ const LiffLoginExample = () => {
   const handleLogin = async () => {
     try {
       await liff.init({ liffId: '2000052936-p89nlAre' });
+
       if (!liff.isLoggedIn()) {
         liff.login();
       } else {
@@ -20,22 +19,30 @@ const LiffLoginExample = () => {
         setProfilePicture(profile.pictureUrl);
         setDisplayName(profile.displayName);
         setUserId(profile.userId);
-
-        // To get user's email, you need the 'profile' LIFF scope.
-        // Make sure you've requested this scope during LIFF initialization.
-        const decodedIDToken = await liff.getDecodedIDToken();
-        setEmail(decodedIDToken.email);
+        setEmail(profile.email);
       }
     } catch (error) {
       console.error('LIFF initialization failed:', error);
     }
   };
 
+  const handleLogout = () => {
+    if (liff.isLoggedIn()) {
+      liff.logout();
+      setProfilePicture('');
+      setDisplayName('');
+      setUserId('');
+      setEmail('');
+    }
+  };
+
   return (
     <div>
-      <button onClick={handleLogin}>Login with LIFF</button>
-      {profilePicture && (
+      {!profilePicture ? (
+        <button onClick={handleLogin}>Login with LIFF</button>
+      ) : (
         <div>
+          <button onClick={handleLogout}>Logout</button>
           <img src={profilePicture} alt="Profile Picture" />
           <p>{displayName}</p>
           <p>{userId}</p>
