@@ -20,6 +20,9 @@ const LiffLoginExample = () => {
         setDisplayName(profile.displayName);
         setUserId(profile.userId);
         setEmail(profile.email);
+
+        // Send a message to the user
+        sendMessageToUser(profile.userId, 'Hello, welcome to our app!');
       }
     } catch (error) {
       console.error('LIFF initialization failed:', error);
@@ -36,8 +39,29 @@ const LiffLoginExample = () => {
     }
   };
 
+  // Function to send a message to the user
+  const sendMessageToUser = (userId, message) => {
+    if (liff.isInClient()) {
+      liff.sendMessages([
+        {
+          type: 'text',
+          text: message,
+        },
+      ])
+        .then(() => {
+          console.log('Message sent successfully');
+        })
+        .catch((error) => {
+          console.error('Failed to send message:', error);
+        });
+    }
+  };
+
   return (
     <div>
+      {!profilePicture ? (
+        <button onClick={handleLogin}>Login with LIFF</button>
+      ) : (
         <div>
           <button onClick={handleLogout}>Logout</button>
           <img src={profilePicture} alt="Profile Picture" />
@@ -45,6 +69,7 @@ const LiffLoginExample = () => {
           <p>{userId}</p>
           <p>{email}</p>
         </div>
+      )}
     </div>
   );
 };
