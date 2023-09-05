@@ -4,9 +4,7 @@ import './App.css';
 
 const LiffLoginExample = () => {
   const [profilePicture, setProfilePicture] = useState('');
-  const [displayName, setDisplayName] = useState('');
   const [userId, setUserId] = useState('');
-  const [email, setEmail] = useState('');
 
   const handleLogin = async () => {
     try {
@@ -17,12 +15,7 @@ const LiffLoginExample = () => {
       } else {
         const profile = await liff.getProfile();
         setProfilePicture(profile.pictureUrl);
-        setDisplayName(profile.displayName);
         setUserId(profile.userId);
-        setEmail(profile.email);
-
-        // Send a message to the user
-        sendMessageToUser(profile.userId, 'Hello, welcome to our app!');
       }
     } catch (error) {
       console.error('LIFF initialization failed:', error);
@@ -33,27 +26,7 @@ const LiffLoginExample = () => {
     if (liff.isLoggedIn()) {
       liff.logout();
       setProfilePicture('');
-      setDisplayName('');
       setUserId('');
-      setEmail('');
-    }
-  };
-
-  // Function to send a message to the user
-  const sendMessageToUser = (userId, message) => {
-    if (liff.isInClient()) {
-      liff.sendMessages([
-        {
-          type: 'text',
-          text: message,
-        },
-      ])
-        .then(() => {
-          console.log('Message sent successfully');
-        })
-        .catch((error) => {
-          console.error('Failed to send message:', error);
-        });
     }
   };
 
@@ -65,9 +38,7 @@ const LiffLoginExample = () => {
         <div>
           <button onClick={handleLogout}>Logout</button>
           <img src={profilePicture} alt="Profile Picture" />
-          <p>{displayName}</p>
-          <p>{userId}</p>
-          <p>{email}</p>
+          <p>User ID: {userId}</p>
         </div>
       )}
     </div>
