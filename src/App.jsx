@@ -8,7 +8,7 @@ const LiffLoginExample = () => {
 
   const handleLogin = async () => {
     try {
-      await liff.init({ liffId: '2000052936-p89nlAre' });
+      await liff.init({ liffId: '2000665579-jvJl5OyP' });
 
       if (!liff.isLoggedIn()) {
         liff.login();
