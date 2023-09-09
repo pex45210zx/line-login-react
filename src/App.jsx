@@ -36,6 +36,7 @@ const LiffLoginExample = () => {
         <button onClick={handleLogin}>Login with LIFF</button>
       ) : (
         <div>
+          <Home />
           <button onClick={handleLogout}>Logout</button>
           <img src={profilePicture} alt="Profile Picture" />
           <p>User ID: {userId}</p>
