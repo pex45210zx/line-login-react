@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import liff from '@line/liff';
-import Home from './components/Home.jsx';
+import './App.css';
 
 const LiffLoginExample = () => {
   const [profilePicture, setProfilePicture] = useState('');
@@ -35,7 +35,11 @@ const LiffLoginExample = () => {
       {!profilePicture ? (
         <button onClick={handleLogin}>Login with LIFF</button>
       ) : (
-          <Home />
+        <div>
+          <button onClick={handleLogout}>Logout</button>
+          <img src={profilePicture} alt="Profile Picture" />
+          <p>User ID: {userId}</p>
+        </div>
       )}
     </div>
   );
