@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import liff from '@line/liff';
 import './App.css';
+import Home from './components/Home';
 
 const LiffLoginExample = () => {
   const [profilePicture, setProfilePicture] = useState('');
