@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FiActivity, FiMenu, FiX } from 'react-icons/fi';
 import './Header.css';
-import { Link } from 'react-router-dom';
 import './Home.css'
 
 
