@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FiActivity, FiMenu, FiX } from 'react-icons/fi';
 import './Header.css';
 import './Home.css'
-
+import { Link } from 'react-router-dom';
 
 
 function Home() {
